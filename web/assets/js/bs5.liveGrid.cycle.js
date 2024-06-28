@@ -32,10 +32,14 @@ function displayCycleSetOnLiveGrid(monitorsList){
     monitorsWatchOnLiveGrid(monitorsList.map(monitor => monitor.mid))
 }
 // rotator
+
+// 라이브 모니터링 순환 중지
 function stopCycleLive(){
     clearTimeout(liveGridCycleTimer)
     liveGridCycleTimer = null
 }
+
+// 라이브 모니터링 다시 시작
 function resumeCycleLive(fullList,partForCycle,numberOfMonitors){
     const theLocalStorage = dashboardOptions()
     const cycleLiveTimerAmount = parseInt(theLocalStorage.cycleLiveTimerAmount) || 30000
@@ -64,6 +68,8 @@ function resumeCycleLive(fullList,partForCycle,numberOfMonitors){
     cycleLiveMoveNext = next
     cycleLiveMovePrev = prev
 }
+
+// 라이브 그리드 시작하거나 중지
 function beginCycleLive({
     chosenTags,
     useMonitorIds,

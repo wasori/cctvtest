@@ -108,7 +108,7 @@ module.exports = function(s,config,lang){
                    },
                    {
                       "name": "detail=max_keep_days",
-                      "field": lang["Number of Days to keep"] + ' ' + lang['Videos'],
+                      "field": lang["Number of Days to keep"],
                       "placeholder": "Default is Global value.",
                       "description": lang["fieldTextMaxKeepDays"],
                    },
@@ -123,13 +123,15 @@ module.exports = function(s,config,lang){
                       "field": lang["Storage Location"],
                       "description": lang["fieldTextDir"],
                       "fieldType": "select",
-                      "possible": s.listOfStorage
+                      "possible": s.listOfStorage,
+                      "hidden": true,
                   },
                   {
                      "name": "detail=auto_compress_videos",
                      "field": lang['Compress Completed Videos'],
                      "description": lang.compressCompletedVideosFieldText,
                      "fieldType": "select",
+                     "hidden": true,
                      "possible": [
                          {
                             "name": lang.No,
@@ -146,6 +148,7 @@ module.exports = function(s,config,lang){
                     "field": lang["Geolocation"],
                     "example": "49.2578298,-123.2634732",
                     "description": lang["fieldTextGeolocation"],
+                    "hidden": true,
                  },
                  {
                      "id": "monitor-settings-monitor-map-container",
@@ -175,9 +178,7 @@ module.exports = function(s,config,lang){
                 "color": "orange",
                 "id": "monSectionConnection",
                 "isSection": true,
-                "blockquote":`<p>${lang.InputText1}</p>\
-                ${lang.InputText2}\
-                <p>${lang.InputText3}</p>`,
+                "blockquote":`<p>${lang.InputText1}</p>`,
                 "blockquoteClass":"global_tip",
                 "info": [
                     {
@@ -502,6 +503,7 @@ module.exports = function(s,config,lang){
                 "name": lang.Input,
                 "color": "forestgreen",
                 "id": "monSectionInput",
+                hidden:true,
                 "isSection": true,
                 "info": [
                    {
@@ -736,7 +738,7 @@ module.exports = function(s,config,lang){
             },
              "Stream": {
                 "name": lang.Stream,
-
+                hidden:true,
                 "color": "navy",
                 "id": "monSectionStream",
                 "isSection": true,
@@ -1317,6 +1319,7 @@ module.exports = function(s,config,lang){
                "id": "monSectionSubstream",
                "blockquote": lang.substreamText,
                "blockquoteClass": 'global_tip',
+               hidden:true,
                "info": [
                    {
                        isAdvanced: true,
@@ -1875,7 +1878,7 @@ module.exports = function(s,config,lang){
            },
              "JPEG API": {
                 "name": lang['JPEG API'],
-                "headerTitle": `${lang['JPEG API']} <small>${lang.Snapshot} (cgi-bin)</small>`,
+                "headerTitle": `${lang['JPEG API']} <small>${lang.Snapshot}</small>`,
                 "id": "monSectionJPEGAPI",
                 "color": "forestgreen",
                 "isSection": true,
@@ -1915,7 +1918,7 @@ module.exports = function(s,config,lang){
                       "name": "detail=snap_scale_x",
                       "field": lang['Image Width'],
                       "description": "",
-                      "default": "",
+                      "default": "1024",
                       "example": "",
                       "form-group-class": "h_sn_input h_sn_1",
                       "possible": ""
@@ -1925,7 +1928,7 @@ module.exports = function(s,config,lang){
                       "name": "detail=snap_scale_y",
                       "field": lang['Image Height'],
                       "description": "",
-                      "default": "",
+                      "default": "768",
                       "example": "",
                       "form-group-class": "h_sn_input h_sn_1",
                       "possible": ""
@@ -2603,6 +2606,7 @@ module.exports = function(s,config,lang){
                 "headerTitle": `${lang['Detector Settings']} <small>${lang['Primary Engine']} : <b class="h_det_pam_input h_det_pam_1">Pixel Array</b><span class="h_det_pam_input h_det_pam_0"><b class="shinobi-detector_name"></b> <b class="shinobi-detector-invert">${lang['Not Connected']}</b><b class="shinobi-detector" style="display:none">${lang['Connected']}</b></span></small></h4>`,
                 "color": "orange",
                 "isSection": true,
+                hidden:true,
                 "input-mapping":"detector",
                 "id": "monSectionDetector",
                 "selector": "h_det",
@@ -3729,6 +3733,8 @@ module.exports = function(s,config,lang){
                 "color": "blue",
                 id: "monSectionControl",
                 isSection: true,
+                "hidden":true,
+                hidden:true,
                 "info": [
                     {
                        "name": "detail=control",
@@ -4103,7 +4109,9 @@ module.exports = function(s,config,lang){
                "name": lang['Copy Settings'],
                "color": "orange",
                 isSection: true,
+                "hidden":true,
                 "box-wrapper-class": "row",
+                hidden:true,
                "info": [
                    {
                       "id": "copy_settings",
@@ -4446,6 +4454,8 @@ module.exports = function(s,config,lang){
                 "color": "blue",
                 "isSection": true,
                 "id": "monSectionNotifications",
+                "hidden":true,
+                hidden:true,
                 "info": [
                     {
                        "name": lang.Methods,
@@ -4588,6 +4598,7 @@ module.exports = function(s,config,lang){
                 "color": "green",
                 id: "monSectionLogging",
                 isSection: true,
+                "hidden":true,
                 "info": [
                    {
                       "name": "detail=loglevel",
@@ -4686,6 +4697,7 @@ module.exports = function(s,config,lang){
                  "evaluation": "!details.sub && details.use_shinobihub !== '0'",
                  "name": lang["ShinobiHub"],
                  "color": "purple",
+                 "hidden": true,
                  "info": [
                      {
                         "name": "detail=shinobihub",
@@ -4722,6 +4734,7 @@ module.exports = function(s,config,lang){
              "AlternateLogins": {
                  "name": lang["Alternate Logins"],
                  "color": "orange",
+                 "hidden": true,
                  "info": [
                      {
                          "form-group-class-pre-layer": "form-group",
@@ -4738,6 +4751,7 @@ module.exports = function(s,config,lang){
              "2-Factor Authentication": {
                  "name": lang['2-Factor Authentication'],
                  "color": "grey",
+                 "hidden": true,
                  "info": [
                     {
                        "name": "detail=factorAuth",
@@ -4760,12 +4774,12 @@ module.exports = function(s,config,lang){
                 ]
              },
              "Profile": {
-                "name": lang.Profile,
+                "name": "프로필",
                 "color": "grey",
                 "info": [
                    {
                       "name": "mail",
-                      "field": lang.Email,
+                      "field": "이메일",
                       "description": lang["fieldTextMail"],
                       "default": "",
                       "example": "ccio@m03.ca",
@@ -4833,7 +4847,7 @@ module.exports = function(s,config,lang){
                    },
                    {
                       "name": "detail=days",
-                      "field": lang["Number of Days to keep"] + ' ' + lang['Videos'],
+                      "field": lang['Videos'] + ' ' +  lang['dayss'],
                       "description": lang["fieldTextDays"],
                       "default": "5",
                       "example": "30",
@@ -4843,7 +4857,7 @@ module.exports = function(s,config,lang){
                    },
                    {
                       "name": "detail=event_days",
-                      "field": lang["Number of Days to keep"] + ' ' + lang['Events'],
+                      "field": lang['Events'] + ' ' +  lang['dayss'],
                       "description": lang["fieldTextEventDays"],
                       "default": "10",
                       "example": "30",
@@ -4853,7 +4867,7 @@ module.exports = function(s,config,lang){
                    },
                    {
                       "name": "detail=timelapseFrames_days",
-                      "field": lang["Number of Days to keep"] + ' ' + lang['Timelapse'],
+                      "field": lang['Timelapse'] + ' ' +  lang['dayss'],
                       "description": lang["fieldTextEventDays"],
                       "default": "60",
                       "notForSubAccount": true,
@@ -4861,7 +4875,7 @@ module.exports = function(s,config,lang){
                    },
                    {
                       "name": "detail=log_days",
-                      "field": lang["Number of Days to keep"] + ' ' + lang['Logs'],
+                      "field":lang['Logs'] + ' ' +  lang['dayss'],
                       "description": lang["fieldTextLogDays"],
                       "default": "10",
                       "example": "30",
@@ -4873,7 +4887,7 @@ module.exports = function(s,config,lang){
                      "name": "detail=lang",
                      "field": lang["Dashboard Language"],
                      "description": lang["fieldTextLang"],
-                     "default": "en_CA",
+                     "default": "ko",
                      "example": "",
                      "fieldType": "select",
                      "possible": s.listOfPossibleLanguages
@@ -4920,6 +4934,7 @@ module.exports = function(s,config,lang){
              "Uploaders": {
                 "name": lang["Uploaders"],
                 "color": "forestgreen",
+                "hidden": true,
                 "info": []
              },
              "Live Grid": {
@@ -4956,6 +4971,7 @@ module.exports = function(s,config,lang){
              "Preferences": {
                 "name": lang.Preferences,
                 "color": "navy",
+                "hidden": true,
                 "info": [
                     {
                         "field": lang['Clock Format'],
@@ -6406,7 +6422,6 @@ module.exports = function(s,config,lang){
               "Saved Filters": {
                  "name": lang["Saved Filters"],
                  "color": "green",
-                 "blockquote": lang.eventFilterEnableNoticeText,
                  "info": [
                      {
                         "field": lang["Monitor"],
@@ -7620,7 +7635,8 @@ module.exports = function(s,config,lang){
               },
               "Zoom In": {
                  "label": lang['Zoom In'],
-                 "class": "default magnify-glass-live-grid-stream",
+                 "attr": `monitor="zoomStreamWithMouse"`,
+                 "class": "default",
                  "icon": "search-plus"
               },
               // "Calendar": {
@@ -7724,12 +7740,12 @@ module.exports = function(s,config,lang){
                                   attributes: 'shinobi-switch="cycleLiveGrid" ui-change-target=".dot" on-class="dot-green" off-class="dot-grey"',
                                   color: 'grey',
                               },
-                              // {
-                              //     label: lang['JPEG Mode'],
-                              //     class: 'cursor-pointer',
-                              //     attributes: 'shinobi-switch="jpegMode" ui-change-target=".dot" on-class="dot-green" off-class="dot-grey"',
-                              //     color: 'grey',
-                              // },
+                              {
+                                  label: lang['JPEG Mode'],
+                                  class: 'cursor-pointer',
+                                  attributes: 'shinobi-switch="jpegMode" ui-change-target=".dot" on-class="dot-green" off-class="dot-grey"',
+                                  color: 'grey',
+                              },
                               {
                                   label: lang['Stream in Background'],
                                   class: 'cursor-pointer',
@@ -7818,9 +7834,9 @@ module.exports = function(s,config,lang){
                           label: `${lang['FileBin']}`,
                           pageOpen: 'fileBinView',
                       },
-                      {
-                          divider: true,
-                      },
+                     //  {
+                     //      divider: true,
+                     //  },
                       {
                           icon: 'wrench',
                           label: `${lang['Monitor Settings']}`,
@@ -7858,9 +7874,9 @@ module.exports = function(s,config,lang){
                           pageOpen: 'logViewer',
                           eval: `!$user.details.sub || $user.details.view_logs !== 0`,
                       },
-                      {
-                          divider: true,
-                      },
+                     //  {
+                     //      divider: true,
+                     //  },
                       {
                           icon: 'gears',
                           label: `${lang['Account Settings']}`,
@@ -7880,9 +7896,9 @@ module.exports = function(s,config,lang){
                           label: `${lang['API Keys']}`,
                           pageOpen: 'apiKeys',
                       },
-                      {
-                          divider: true,
-                      },
+                     //  {
+                     //      divider: true,
+                     //  },
                       {
                           icon: 'search',
                           label: `${lang['ONVIF Scanner']}`,

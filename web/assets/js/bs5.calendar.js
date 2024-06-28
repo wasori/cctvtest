@@ -48,7 +48,8 @@ $(document).ready(function(e){
                     right: 'month,agendaWeek,agendaDay,listWeek'
                 },
                 defaultDate: dateRange.startDateMoment.format('YYYY-MM-DD'),
-                locale: ($user.details.lang || '').substring(0, 2) || undefined,
+                // locale: ($user.details.lang || '').substring(0, 2) || undefined,
+                locale: 'ko',
                 navLinks: true,
                 eventLimit: true,
                 events: calendarData,

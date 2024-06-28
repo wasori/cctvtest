@@ -1,5 +1,13 @@
 <% const menuInfo = define.SideMenu.blocks.Container1
     const showMonitors = define.SideMenu.showMonitors; %>
+
+<% const menusToRemove = ['monitorSettings', 'regionEditor', 'eventFilters','monitorStates','schedules','logViewer',
+'subAccountManager', 'apiKeys', 'onvifScanner', 'onvifDeviceManager', 'cameraProbe', 'configFinder' , 'monitorMap','helpWindow'];
+    menusToRemove.forEach(menuToRemove => {
+        menuInfo.links = menuInfo.links.filter(item => item.pageOpen !== menuToRemove);
+    });
+%>
+
 <nav id="<%- menuInfo.id || 'sidebarMenu' %>" class="<%- menuInfo.class || 'col-md-3 col-lg-2 d-md-block sidebar collapse' %>">
     <div id="menu-side" class="position-sticky">
         <div class="align-items-center d-flex flex-row my-3 m-3 btn-default rounded shadow-sm cursor-pointer" style="overflow: hidden;">
@@ -25,8 +33,14 @@
             </div>
             <% } %>
         </div>
-
-        <%- include('drawBlock', {theBlock: define.SideMenu.blocks.SideMenuBeforeList}); %>
+        <%
+          var drawBlock
+          var buildOptions
+        %>
+        <%
+          include fieldBuilders.ejs
+        %>
+        <% drawBlock(define.SideMenu.blocks.SideMenuBeforeList) %>
         <div tab-specific-content="liveGrid" style="display:none">
             <div class="form-group px-3">
                 <div class="dropdown">
@@ -41,32 +55,32 @@
               <ul id="pageTabLinks" class="nav flex-column nav-pills">
                   <div id="createdTabLinks" class="pb-3 px-3 hidden-empty"></div>
                   <div class="pb-2 px-3" id="home-collapse">
-                      <% menuInfo.links.forEach((item) => {
-                            if(!item.eval || eval(item.eval)){
-                                if(item.divider){ %>
-                                    <li><hr class="dropdown-divider"></li>
-                                <% }else{ %>
-                                    <li class="nav-item" <%- item.attributes ? item.attributes : '' %> <%- item.pageOpen ? `id="side-menu-link-${item.pageOpen}"` : '' %>>
-                                        <a class="nav-link side-menu-link <%- item.class %>" aria-current="page" <%- item.pageOpen ? `page-open="${item.pageOpen}"` : '' %>>
-                                          <i class="fa fa-<%- item.icon %>"></i> &nbsp; <%- item.label %>
-                                        </a>
-                                        <% if(item.addUl){ %>
-                                            <ul class="btn-default rounded btn-toggle-nav list-unstyled fw-normal ml-3 mt-2 px-2 pb-2 pt-1 <%- item.ulClass ? item.ulClass : '' %>" style="<%- item.ulStyle ? item.ulStyle : '' %>">
-                                                <% if(item.ulItems){
-                                                    item.ulItems.forEach((listItem) => { %>
-                                                        <li><a class="<%- define.Theme.isDark ? 'text-white' : 'text-dark' %> <%- listItem.class ? listItem.class : '' %>" <%- listItem.attributes ? listItem.attributes : '' %>><span class="dot dot-<%- listItem.color ? listItem.color : 'blue' %> shadow mr-2"></span><%- listItem.label ? listItem.label : 'Need Label' %></a></li>
-                                                <%  })
-                                                   } %>
-                                            </ul>
-                                        <% } %>
-                                    </li>
-                              <% } %>
-                          <% } %>
-                      <% }) %>
+                    <% menuInfo.links.forEach((item) => {
+                        if(!item.eval || eval(item.eval)){
+                            if(item.divider){ %>
+                                <li><hr class="dropdown-divider"></li>
+                            <% }else{ %>
+                                <li class="nav-item" <%- item.attributes ? item.attributes : '' %> <%- item.pageOpen ? `id="side-menu-link-${item.pageOpen}"` : '' %>>
+                                    <a class="nav-link side-menu-link <%- item.class %>" aria-current="page" <%- item.pageOpen ? `page-open="${item.pageOpen}"` : '' %>>
+                                      <i class="fa fa-<%- item.icon %>"></i> &nbsp; <%- item.label %>
+                                    </a>
+                                    <% if(item.addUl){ %>
+                                        <ul class="btn-default rounded btn-toggle-nav list-unstyled fw-normal ml-3 mt-2 px-2 pb-2 pt-1 <%- item.ulClass ? item.ulClass : '' %>" style="<%- item.ulStyle ? item.ulStyle : '' %>">
+                                            <% if(item.ulItems){
+                                                item.ulItems.forEach((listItem) => { %>
+                                                    <li><a class="<%- define.Theme.isDark ? 'text-white' : 'text-dark' %> <%- listItem.class ? listItem.class : '' %>" <%- listItem.attributes ? listItem.attributes : '' %>><span class="dot dot-<%- listItem.color ? listItem.color : 'blue' %> shadow mr-2"></span><%- listItem.label ? listItem.label : 'Need Label' %></a></li>
+                                                <% })
+                                            } %>
+                                        </ul>
+                                    <% } %>
+                                </li>
+                            <% }
+                        }
+                    }) %>
                   </div>
               </ul>
           </div>
-          <%- include('drawBlock', {theBlock: define.SideMenu.blocks.SideMenuAfterList}); %>
+          <% drawBlock(define.SideMenu.blocks.SideMenuAfterList) %>
           <% if(showMonitors){ %>
               <div>
                   <div class="form-group px-3">

@@ -235,11 +235,8 @@ function getLocation(d){
     }
     return url
 }
-function getApiHost(path,isAdmin){
-    return getLocation() + (window.adminApiPrefix && isAdmin ? `${window.adminApiPrefix}` : '');
-}
 function getApiPrefix(path,isAdmin){
-    var mainPart = getApiHost(path,isAdmin) + $user.auth_token
+    var mainPart = getLocation() + (window.adminApiPrefix && isAdmin ? `${window.adminApiPrefix}` : '') + $user.auth_token
     return path ? mainPart + '/' + path + '/' + $user.ke : mainPart
 }
 

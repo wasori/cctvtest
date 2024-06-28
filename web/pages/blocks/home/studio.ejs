@@ -1,10 +1,16 @@
 <main class="page-tab pt-3" id="tab-studio">
     <div class="row <%- define.Theme.isDark ? `dark` : '' %>" id="studio">
-        <%  Object.keys(define['Studio'].blocks).forEach(function(blockKey) { -%>
-        <%- include('drawBlock', {
-                theBlock: define['Studio'].blocks[blockKey]
-            }) %>
-        <%  }) -%>
+        <%
+          var drawBlock
+          var buildOptions
+        %>
+        <%
+            include fieldBuilders.ejs
+        %>
+        <% Object.keys(define['Studio'].blocks).forEach(function(blockKey){
+              var theBlock = define['Studio'].blocks[blockKey]
+              drawBlock(theBlock)
+          }) %>
     </div>
 </main>
 <link rel="stylesheet" href="<%-window.libURL%>assets/css/bs5.studio.css">

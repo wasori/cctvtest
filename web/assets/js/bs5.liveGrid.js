@@ -33,6 +33,7 @@ function setLiveGridOpenCount(addOrRemove){
 function getLiveGridData(){
     return liveGridData
 }
+
 function getMonitorsPerRow(){
     var x
     switch(dashboardOptions().montage){
@@ -285,9 +286,13 @@ function drawLiveGridBlock(monitorConfig,subStreamChannel,forcedMonitorsPerRow,m
     if($('#monitor_live_' + monitorId).length === 0){
         var x = null;
         var y = null;
-        var monitorsPerRow = getMonitorsPerRow()
-        var width = monitorsPerRow
-        var height = width;
+        // var monitorsPerRow = getMonitorsPerRow()
+        // var width = monitorsPerRow
+        var monitorsPerRow = 3;
+        var width = 4;
+
+        var height = monitorsPerRow;
+
         var isSmallMobile = isMobile || window.innerWidth <= 812;
         var html = buildLiveGridBlock(monitorConfig)
         var monitorOrderEngaged = dashboardOptions().switches.monitorOrder === 1;
@@ -312,11 +317,14 @@ function drawLiveGridBlock(monitorConfig,subStreamChannel,forcedMonitorsPerRow,m
             height = saved.height;
         }
         liveGridData.addWidget({
-            x,
-            y,
-            h: isSmallMobile ? 1 :  height,
+            // x,
+            // y,
+            x: x !== null ? x : undefined, // x가 null이 아닌 경우만 x를 설정
+            y: y !== null ? y : undefined, // y가 null이 아닌 경우만 y를 설정
+            h: isSmallMobile ? 1 :  3,
             w: isSmallMobile ? 4 :  width,
-            content: html
+            content: html,
+            autoPosition: false
         });
         if(isMobile)liveGridData.disable();
         var theBlock = $('#monitor_live_' + monitorId);
@@ -676,12 +684,12 @@ function loadPreviouslyOpenedLiveGridBlocks(){
         })
         setTimeout(function(){
             sortListMonitors()
-            // if(dashboardOptions().switches.jpegMode === 1){
-            //     mainSocket.f({
-            //         f: 'monitor',
-            //         ff: 'jpeg_on'
-            //     })
-            // }
+            if(dashboardOptions().switches.jpegMode === 1){
+                mainSocket.f({
+                    f: 'monitor',
+                    ff: 'jpeg_on'
+                })
+            }
         },1000)
         drawMonitorGroupList()
     })
@@ -1142,46 +1150,6 @@ $(document).ready(function(e){
             ]
         });
     })
-    .on('click','.magnify-glass-live-grid-stream',function(){
-        const monitorId = $(this).parents('[data-mid]').attr('data-mid')
-        const streamWindow = $('.monitor_item[data-mid="'+monitorId+'"]')
-        const monitor = loadedMonitors[monitorId]
-        if(monitor.magnifyStreamEnabled){
-            monitor.magnifyStreamEnabled = false
-            clearTimeout(monitor.magnifyMouseActionTimeout)
-            var zoomHoverShade = createMagnifyStreamMask({
-                p: streamWindow,
-            })
-            zoomHoverShade
-                .off('mousemove', monitor.magnifyMouseAction)
-                .off('touchmove', monitor.magnifyMouseAction);
-            streamWindow
-                .find('.zoomGlass,.zoomHoverShade').remove()
-        }else{
-            streamWindow.find('.mdl-overlay-menu-backdrop').addClass('hidden')
-            monitor.magnifyStreamEnabled = true
-            var zoomHoverShade = createMagnifyStreamMask({
-                p: streamWindow,
-            })
-            monitor.magnifyMouseAction = function(e){
-                clearTimeout(monitor.magnifyMouseActionTimeout)
-                monitor.magnifyMouseActionTimeout = setTimeout(function(){
-                    magnifyStream({
-                        p: streamWindow,
-                        zoomAmount: 1,
-                        auto: false,
-                        animate: false,
-                        pageX: e.pageX,
-                        pageY:  e.pageY,
-                        attribute: '.magnify-glass-live-grid-stream'
-                    })
-                },50)
-            }
-            zoomHoverShade
-                .on('mousemove', monitor.magnifyMouseAction)
-                .on('touchmove', monitor.magnifyMouseAction)
-        }
-    })
     $('.open-all-monitors').click(function(){
         openAllLiveGridPlayers()
     })
@@ -1274,20 +1242,20 @@ $(document).ready(function(e){
                 }
                 showHideSubstreamActiveIcon(monitorId,!!subStreamChannel)
             break;
-            // case'mode_jpeg_off':
-            //     window.jpegModeOn = false
-            //     $.each(loadedMonitors,function(n,v){
-            //         stopJpegStream(v.mid)
-            //         resetMonitorCanvas(v.mid)
-            //         initiateLiveGridPlayer(v)
-            //     })
-            //     $('body').removeClass('jpegMode')
-            // break;
-            // case'mode_jpeg_on':
-            //     window.jpegModeOn = true
-            //     startAllJpegStreams()
-            //     $('body').addClass('jpegMode')
-            // break;
+            case'mode_jpeg_off':
+                window.jpegModeOn = false
+                $.each(loadedMonitors,function(n,v){
+                    stopJpegStream(v.mid)
+                    resetMonitorCanvas(v.mid)
+                    initiateLiveGridPlayer(v)
+                })
+                $('body').removeClass('jpegMode')
+            break;
+            case'mode_jpeg_on':
+                window.jpegModeOn = true
+                startAllJpegStreams()
+                $('body').addClass('jpegMode')
+            break;
             case'detector_trigger':
                 var monitorId = d.id
                 var liveGridElement = liveGridElements[monitorId]

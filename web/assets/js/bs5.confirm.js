@@ -10,7 +10,6 @@ $(document).ready(function(){
             if(!x.class){x.class='btn-success'}
             if(!x.title){x.title='Save changes'}
             $.confirm.footer.find('.confirmaction'+place).click(function(){
-                delete($.confirm.onCancel);
                 $.confirm.e.modal('hide')
                 callback();
             })
@@ -24,24 +23,20 @@ $(document).ready(function(){
         }
     }
     $.confirm.create = function(options){
-        options.title = options.title || 'No Title'
-        options.body = options.body || 'No Text'
-        $.confirm.e.modal('show')
-        $.confirm.title.text(options.title)
-        $.confirm.body.css('word-wrap','initial')
-        if(options.breakWord){
-            $.confirm.body.css('word-wrap','break-word')
+        if(options.title && options.body){
+            $.confirm.e.modal('show')
+            $.confirm.title.text(options.title)
+            $.confirm.body.css('word-wrap','initial')
+            if(options.breakWord){
+                $.confirm.body.css('word-wrap','break-word')
+            }
+            $.confirm.body.html(options.body)
+        }else{
+            alert('No Title, Language file Update?')
         }
-        $.confirm.body.html(options.body)
-        if(options.clickOptions && options.clickCallback || options.clickOptions instanceof Array){
-            $.confirm.click(options.clickOptions, options.clickCallback);
-        }
-        $.confirm.onCancel = options.onCancel;
+        if(options.clickOptions && options.clickCallback || options.clickOptions instanceof Array)$.confirm.click(options.clickOptions,options.clickCallback)
     }
     $.confirm.e.on('hidden.bs.modal', function () {
-        if($.confirm.onCancel){
-            $.confirm.onCancel()
-        }
         $.confirm.body.empty()
         $.confirm.footer.find('.confirmaction').remove()
     })

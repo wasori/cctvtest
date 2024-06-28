@@ -1,12 +1,19 @@
 <main class="page-tab" id="tab-timeline" style="position:relative;margin-right:-1.5rem;margin-left:-1.5rem;">
    <div class="dark">
        <%
-       var pageName = 'Timeline';
-       Object.keys(define[pageName].blocks).forEach(function(blockKey) { -%>
-        <%- include('drawBlock', {
-              theBlock: define[pageName].blocks[blockKey]
-            }) %>
-      <%  }) -%>
+         var drawBlock
+         var buildOptions
+       %>
+       <%
+         include fieldBuilders.ejs
+       %>
+       <%
+           var pageName = 'Timeline';
+           Object.keys(define[pageName].blocks).forEach(function(blockKey){
+               var pageLayout = define[pageName].blocks[blockKey]
+               drawBlock(pageLayout)
+           })
+       %>
 
    </div>
    <link rel="stylesheet" href="<%-window.libURL%>assets/css/bs5.timeline.css" />

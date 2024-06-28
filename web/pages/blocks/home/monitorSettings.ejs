@@ -1,11 +1,17 @@
 <main class="container page-tab pt-3" id="tab-monitorSettings">
     <form>
         <div class="dark">
-            <%  Object.keys(define['Monitor Settings'].blocks).forEach(function(blockKey) { -%>
-              <%- include('drawBlock', {
-                    theBlock: define['Monitor Settings'].blocks[blockKey]
-                  }) %>
-            <%  }) -%>
+            <%
+              var drawBlock
+              var buildOptions
+            %>
+            <%
+              include fieldBuilders.ejs
+            %>
+            <% Object.keys(define['Monitor Settings'].blocks).forEach(function(blockKey){
+                  var accountSettings = define['Monitor Settings'].blocks[blockKey]
+                  drawBlock(accountSettings)
+              }) %>
               <div style="margin-bottom: 50px;"></div>
           </div>
           <div class="sticky-bar p-3 d-flex flex-row">
@@ -40,6 +46,13 @@
           </div>
     </form>
 </main>
+<%
+  var drawBlock
+  var buildOptions
+%>
+<%
+  include fieldBuilders.ejs
+%>
 
 <script>
     var monitorSettingsAdditionalInputMapFieldHtml = `<% Object.keys(define["Monitor Settings Additional Input Map"].blocks).forEach(function(blockKey){

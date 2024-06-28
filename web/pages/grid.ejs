@@ -31,12 +31,7 @@ if(!data.group || data.group === ''){
     }
 </style>
 
-<script src="<%=data.url%>/libs/js/jquery.min.js"></script>
-<script src="<%=data.url%>/libs/js/jquery-ui.min.js"></script>
-<script src="<%=data.url%>/libs/js/bootstrap.min.js"></script>
-<script src="<%=data.url%>/libs/js/lodash.min.js"></script>
-<script src="<%=data.url%>/libs/js/gridstack.min.js"></script>
-<script src="<%=data.url%>/libs/js/gridstack.jQueryUI.min.js"></script>
+
 <div class="grid-stack"></div>
 <script type="text/javascript">
     $.grid = {};
@@ -60,6 +55,7 @@ if(!data.group || data.group === ''){
     }
     $(function () {
         //init grid
+        console.log("그리드.ejs진입")
         var gridTag = '.grid-stack';
         var gridEl = $(gridTag);
         var options = {
@@ -68,9 +64,9 @@ if(!data.group || data.group === ''){
         };
         //monitor="watch_off"
         gridEl.gridstack(options);
-        gridEl.on('change', function (event, ui) {
+        gridEl.on('change', function (event, items) {
             var savedGrids = $.grid.op().savedGrids;
-            if(!savedGrids)savedGrids = {};
+            if(!savedGrids) savedGrids = {};
             savedGrids[data.group] = {};
             gridEl.find('.grid-stack-item').each(function(n,v){
                 var el = $(v);
@@ -90,11 +86,13 @@ if(!data.group || data.group === ''){
         var gridX = 0;
         var gridY = 0;
         var itemW = 4;
-        var itemH = 4;
+        var itemH = 3;
         var savedGrids = $.grid.op().savedGrids;
         if(!savedGrids)savedGrids = {};
         if(!savedGrids[data.group])savedGrids[data.group] = {};
         var grid = gridEl.data('gridstack');
+        var row = 0, col = 0;
+        var monitorsPerRow = 3;
         $.each(<%- JSON.stringify(monitors) %>,function(n,monitor){
             var x = gridX;
             var y = gridY;

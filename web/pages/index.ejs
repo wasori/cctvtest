@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
 <!-- Powered by Shinobi, http://shinobi.video -->
-<%- include('blocks/header-title'); %>
+<% include blocks/header-title.ejs %>
 <%
     if(config.baseURL)window.libURL = config.baseURL;
     if(!window.libURL)window.libURL = originalURL;
  %>
-<%- include('blocks/header-meta'); %>
+<% include blocks/header-meta.ejs %>
 <meta http-equiv="content-type" content="text/html;charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link rel="stylesheet" href="<%-window.libURL%>assets/vendor/bootstrap5/css/bootstrap.min.css">
@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="<%-window.libURL%>assets/css/gradients.css">
 <link rel="stylesheet" href="<%-window.libURL%>assets/css/bs5.darktheme.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-<%- include('blocks/header-favicon'); %>
+<% include blocks/header-favicon.ejs %>
 <script src="<%-window.libURL%>assets/vendor/js/jquery.min.js"></script>
 <script src="<%-window.libURL%>assets/vendor/js/jquery-ui.min.js"></script>
 <script src="<%-window.libURL%>assets/vendor/js/jquery.serialize.js"></script>
@@ -30,9 +30,9 @@
 <% if(screen){screen=screen.toLowerCase()} %>
 <body>
 <div id="page-contents" class="display-table full-height">
-    <div class="shinobi-bg-shade bg-gradient-<%- screen === 'super' ? 'green' : 'blue' %>">
+    <div class="shinobi-bg-shade bg-gradient-<%- screen === 'super' ? 'green' : 'black' %>">
     	<div class="d-flex flex-row full-height">
-			<div class="col-0 col-lg-8" style="background-image:url(<%- config.loginScreenBackground %>);<%- config.loginScreenBackgroundCss ? config.loginScreenBackgroundCss : 'background-size: cover;opacity: 0.2;' %>">
+			<div class="col-0 col-lg-8" style="background-image:url(assets/img/cctv_bg-04.png);<%- config.loginScreenBackgroundCss ? config.loginScreenBackgroundCss : 'background-size: cover;opacity: 0.8;background-position: 50% 60%;' %>">
 
             </div>
 			<div class="col-12 col-lg-4 vertical-center" style="background:rgba(0,0,0,0.8)">
@@ -49,7 +49,7 @@
                             %>
                             <div class="text-center p-2">
                                 <a href="<%- config.logoLocation76x76Link %>" target="_blank">
-                                    <img src="<%- logoImageLink %>" style="<%- config.logoLocation76x76Style %>">
+                                    <img src="assets/img/at-logo-final.png"style="<%- config.logoLocation76x76Style %>">
                                 </a>
                             </div>
                         <% } %>
@@ -70,11 +70,11 @@
     									</div>
                                     <% } %>
 									<div class="form-group">
-                                        <label><%- lang['Email'] %></label>
+                                        <label>이메일</label>
 										<input type="text" name="mail" id="email" tabindex="1" autofocus class="form-control wide-text" placeholder="<%- lang.Email %>" value="">
 									</div>
 									<div class="form-group">
-                                        <label><%- lang['Password'] %></label>
+                                        <label>비밀번호</label>
 										<input type="password" name="pass" id="pass" tabindex="2" class="form-control wide-text" placeholder="<%- lang.Password %>">
 									</div>
 									<div class="form-group f_i_input f_i_ldap" style="display:none">
@@ -83,7 +83,7 @@
 									</div>
                                     <% if(config.showLoginSelector === true){ %>
     									<div class="form-group f_i_input f_i_">
-                                            <label><%- lang['Landing Page'] %></label>
+                                            <label>시작페이지</label>
         									<div class="row">
                                                 <div class="col-md-12">
                                                     <select class="form-control wide-text" name="function">
@@ -120,24 +120,24 @@
                                         </select>
                                     <% } %>
                                     <div class="form-group" <%- config.showLoginTypeSelector === true ? '' : 'style="display:none"' %>>
-                                        <label><%- lang['Authenticate'] %></label>
+                                        <!-- <label>인증</label>
                                         <select class="form-control wide-text" name="alternateLogin" selector="f_i">
-                                            <option value="" selected><%- lang.Default %></option>
+                                            <option value="" selected>기본값</option>
                                             <% if(config.allowGoogleSignOn){ %>
                                                 <option value="google">Google</option>
                                             <% } %>
                                             <option value="ldap"><%- lang.LDAP %></option>
-                                        </select>
-                                        <input style="display:none" name="alternateLoginToken" class="form-control wide-text" placeholder="Group Key">
+                                        </select> -->
+                                        <!-- <input style="display:none" name="alternateLoginToken" class="form-control wide-text" placeholder="Group Key"> -->
                                     </div>
                                     <div class="form-group">
                                         <label class="mb-0">
                                             <input class="mt-1 mr-1" type="checkbox" id="remember_me" value="1" name="remember">
-                                            <span class="text-white"><%- lang['Remember Me'] %></span>
+                                            <span class="text-white">아이디 기억하기</span>
                                         </label>
                                     </div>
 									<div class="form-group mt-4">
-                                        <button type="submit" name="login-submit" id="login-submit" tabindex="4" class="btn btn-success btn-block wide-text" style="color:#FFF"><%- lang.Login %></button>
+                                        <button type="submit" name="login-submit" id="login-submit" tabindex="4" class="btn btn-success btn-block wide-text" style="color:#FFF">로그인</button>
 									</div>
                                     <% if(config.allowGoogleSignOn){ %>
     									<div class="form-group text-center">
@@ -148,7 +148,7 @@
     						</div>
     					</div>
     				</div>
-                    <!-- Card END -->
+                    <!-- Card END
                     <div class="my-5"></div>
                     <div class="form-group mb-0 text-center">
                         <% config.socialLinks.forEach((item) => { %>
@@ -160,16 +160,12 @@
                                 </div>
                             </a>
                         <% }) %>
-                    </div>
+                    </div> -->
                     <!-- Powered By Shinobi -->
                     <div class="mt-4"></div>
                     <div class="text-center text-white monospace mt-2">
                         <small>
-                            <% if(config.showPoweredByShinobi){ %>
-                                <p><%- config.poweredByShinobi %></p>
-                            <% }else{ %>
-                                <!-- <%- config.poweredByShinobi %> -->
-                            <% } %>
+                            System by AT-SOLUTION
                         </small>
                     </div>
                     <!-- Powered By Shinobi END -->

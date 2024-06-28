@@ -1,3 +1,11 @@
 <main class="page-tab mx-md-n4" id="tab-liveGrid">
     <div class="grid-stack" id="monitors_live"></div>
 </main>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 모든 리사이즈 핸들을 제거
+        document.querySelectorAll('.ui-resizable-handle').forEach(handle => {
+            handle.parentNode.removeChild(handle);
+        });
+    });
+</script>

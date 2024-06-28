@@ -35,3 +35,8 @@
 .leaflet-marker-icon {
     transition: 0s;
 }
+
+#monitor-settings-monitor-map-container {
+    display: none;
+}
+

@@ -1,8 +1,8 @@
 <body class="bg-darker">
-    <%- include('home/menuFirst'); %>
+    <% include home/menuFirst.ejs %>
     <div class="container-fluid">
         <div class="row">
-            <%- include('home/menuSide'); %>
+            <% include home/menuSide.ejs %>
             <main id="pageTabContainer" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <% (config.webBlocksPreloaded).forEach(function(block){ %>
                     <%- include(__dirname + '/web/pages/blocks/' +block + '.ejs') %>

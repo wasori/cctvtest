@@ -9,16 +9,16 @@ $(document).ready(function() {
     newDate.setDate(newDate.getDate());
     var updateDate = function(){
         // var clockDateFormat = `$DAYNAME $DAY $MONTHNAME $YEAR`
-        timeDate.innerHTML = dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear();
+        timeDate.innerHTML = newDate.getFullYear() + "년 " + monthNames[newDate.getMonth()] + " " + newDate.getDate() + '일 ' + dayNames[newDate.getDay()];
     }
     if($user.details.clock_date_format){
         var clockDateFormat = `${$user.details.clock_date_format}`
         updateDate = function(){
             const newTimeString = clockDateFormat
-                .replaceAll('$DAYNAME',dayNames[newDate.getDay()])
-                .replaceAll('$DAY',newDate.getDate())
+                .replaceAll('$YEAR',newDate.getFullYear())
                 .replaceAll('$MONTHNAME',monthNames[newDate.getMonth()])
-                .replaceAll('$YEAR',newDate.getFullYear());
+                .replaceAll('$DAY',newDate.getDate())
+                .replaceAll('$DAYNAME',dayNames[newDate.getDay()]);
             timeDate.innerHTML = newTimeString;
         }
     }

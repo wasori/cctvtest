@@ -248,7 +248,7 @@ body {
     position: fixed;
 	width: 35px;
 	height: 35px;
-	top: 10px;
+	bottom: 10px;
 	left: 10px;
 	background-color: #fff;
 	color: #333;

@@ -1,10 +1,16 @@
 <main class="page-tab pt-3" id="tab-fileBinView">
     <div class="row <%- define.Theme.isDark ? `dark` : '' %>">
-        <%  Object.keys(define['FileBin'].blocks).forEach(function(blockKey) { -%>
-          <%- include('drawBlock', {
-                theBlock: define['FileBin'].blocks[blockKey]
-              }) %>
-        <%  }) -%>
+        <%
+          var drawBlock
+          var buildOptions
+        %>
+        <%
+            include fieldBuilders.ejs
+        %>
+        <% Object.keys(define['FileBin'].blocks).forEach(function(blockKey){
+              var theBlock = define['FileBin'].blocks[blockKey]
+              drawBlock(theBlock)
+          }) %>
     </div>
     <div style="margin-bottom: 50px;"></div>
     <h4 class="sticky-bar p-3 d-flex flex-row">
